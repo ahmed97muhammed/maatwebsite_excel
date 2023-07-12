@@ -22,12 +22,13 @@ Route::get('/', function () {
 });
 
 Route::post('items/import',function(Request $request){
-
+ini_set('max_execution_time', 180); //3 minutes
     Excel::import(new ItemImport, $request->file('file'));
     return redirect()->back();
     
 })->name('items.import');
 
 Route::get('items/export',function(){
+    ini_set('max_execution_time', 180); //3 minutes
     return Excel::download(new ItemExport, 'items.xlsx');
 })->name('items.export');
